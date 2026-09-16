@@ -22,6 +22,57 @@
       --accent-light: #e8d5c0;
       --border: #e2ddd5;
       --white: #ffffff;
+      --nav-bg: rgba(250, 248, 244, 0.88);
+      --footer-bg: #1a1916;
+      --contact-bg: #1a1916;
+      --contact-text: #faf8f4;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --cream: #171614;
+        --paper: #24211d;
+        --ink: #f2eee7;
+        --ink-light: #c2bbb0;
+        --ink-muted: #8d877e;
+        --accent-light: #604d3c;
+        --border: #3a352f;
+        --white: #ffffff;
+        --nav-bg: rgba(23, 22, 20, 0.88);
+        --footer-bg: #0e0d0c;
+        --contact-bg: #0e0d0c;
+        --contact-text: #f2eee7;
+      }
+    }
+
+    :root[data-theme="light"] {
+      --cream: #faf8f4;
+      --paper: #f3f0ea;
+      --ink: #1a1916;
+      --ink-light: #5a574f;
+      --ink-muted: #9a9690;
+      --accent-light: #e8d5c0;
+      --border: #e2ddd5;
+      --white: #ffffff;
+      --nav-bg: rgba(250, 248, 244, 0.88);
+      --footer-bg: #1a1916;
+      --contact-bg: #1a1916;
+      --contact-text: #faf8f4;
+    }
+
+    :root[data-theme="dark"] {
+      --cream: #171614;
+      --paper: #24211d;
+      --ink: #f2eee7;
+      --ink-light: #c2bbb0;
+      --ink-muted: #8d877e;
+      --accent-light: #604d3c;
+      --border: #3a352f;
+      --white: #ffffff;
+      --nav-bg: rgba(23, 22, 20, 0.88);
+      --footer-bg: #0e0d0c;
+      --contact-bg: #0e0d0c;
+      --contact-text: #f2eee7;
     }
 
     html { scroll-behavior: smooth; }
@@ -42,7 +93,7 @@
       display: flex;
       align-items: center;
       padding: 1.25rem 3rem;
-      background: rgba(250, 248, 244, 0.88);
+      background: var(--nav-bg);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
     }
@@ -61,6 +112,7 @@
       display: flex;
       gap: 2.5rem;
       list-style: none;
+      align-items: center;
     }
 
     .nav-links a {
@@ -75,9 +127,57 @@
 
     .nav-links a:hover { color: var(--ink); }
 
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      border: 1px solid var(--border);
+      padding: 0.45rem 0.7rem;
+      background: transparent;
+      color: var(--ink-light);
+      cursor: pointer;
+      font: inherit;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--ink);
+      color: var(--ink);
+    }
+
+    .theme-toggle-icon {
+      font-size: 0.9rem;
+      line-height: 1;
+    }
+
     a:focus-visible {
       outline: 2px solid var(--accent);
       outline-offset: 4px;
+    }
+
+    button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 0.75rem;
+      left: 0.75rem;
+      z-index: 200;
+      padding: 0.6rem 0.9rem;
+      background: var(--ink);
+      color: var(--cream);
+      text-decoration: none;
+      transform: translateY(-200%);
+      transition: transform 0.2s;
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
     }
 
     .hero {
@@ -362,7 +462,7 @@
     }
 
     .contact-section {
-      background: var(--ink);
+      background: var(--contact-bg);
       padding: 7rem 3rem;
       text-align: center;
     }
@@ -386,7 +486,7 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(2.5rem, 5vw, 4rem);
       font-weight: 300;
-      color: var(--cream);
+      color: var(--contact-text);
       line-height: 1.1;
       margin-bottom: 1.5rem;
     }
@@ -415,7 +515,7 @@
       display: inline-block;
       padding: 0.8rem 1.75rem;
       border: 1px solid rgba(255,255,255,0.15);
-      color: var(--cream);
+      color: var(--contact-text);
       text-decoration: none;
       font-size: 0.78rem;
       letter-spacing: 0.12em;
@@ -438,7 +538,7 @@
     .contact-link.primary:hover { background: #a86a38; }
 
     footer {
-      background: var(--ink);
+      background: var(--footer-bg);
       border-top: 1px solid rgba(255,255,255,0.06);
       padding: 2rem 3rem;
       display: flex;
@@ -489,6 +589,17 @@
       transform: translateY(0);
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
     @media (max-width: 900px) {
       nav { padding: 1rem 1.5rem; }
       .nav-links { gap: 1.5rem; }
@@ -522,21 +633,24 @@
 </head>
 <body>
 
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
   <!-- NAV -->
-  <nav>
-    <a class="nav-home" href="#top" aria-label="Back to top" title="Back to top">&#8593;</a>
+  <nav aria-label="Primary navigation">
+    <a class="nav-home" href="#main-content" aria-label="Back to top" title="Back to top">&#8593;</a>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#contact">Contact</a></li>
+      <li><button class="theme-toggle" type="button" aria-label="Switch to dark mode"><span class="theme-toggle-icon" aria-hidden="true">◐</span><span class="theme-toggle-label">Dark mode</span></button></li>
     </ul>
   </nav>
 
   <!-- HERO -->
-  <main id="top">
-  <section class="hero">
+  <main id="main-content">
+  <section class="hero" aria-labelledby="hero-name">
     <div class="hero-text">
       <span class="hero-label">Welcome to my biography</span>
-      <h1 class="hero-name">Hi, I'm<br /><em>Guan</em></h1>
+      <h1 id="hero-name" class="hero-name">Hi, I'm<br /><em>Guan</em></h1>
       <p class="hero-tagline">I love to build solutions with technology that make a difference.</p>
       <div class="hero-actions">
         <a href="#contact" class="btn-primary">Get in touch</a>
@@ -544,32 +658,31 @@
       </div>
     </div>
 
-    <div class="hero-image" aria-label="Introduction to Guan">
+    <div class="hero-image" role="img" aria-label="Introduction to Guan">
       <div class="hero-image-frame">
         <div class="placeholder-portrait">
-          <div class="hero-image-note"><span>Engineer</span><span>Singapore</span></div>
           <p class="hero-statement">Technology should feel <em>useful</em>, human, and quietly powerful.<small>A practical approach to better work</small></p>
         </div>
       </div>
-      <div class="hero-image-accent"></div>
+      <div class="hero-image-accent" aria-hidden="true"></div>
     </div>
 
   </section>
 
   <!-- ABOUT -->
   <div class="divider"></div>
-  <section id="about" class="section fade-in">
-    <div class="section-label">About me</div>
+  <section id="about" class="section fade-in" aria-labelledby="about-heading">
+    <div id="about-label" class="section-label">About me</div>
     <div class="about-grid">
       <div>
-        <h2 class="about-heading">Using <em>technology</em> and <em>AI</em> to build tools that <em>improve</em> lives.</h2>
+        <h2 id="about-heading" class="about-heading">Using <em>technology</em> and <em>AI</em> to build tools that <em>improve</em> lives.</h2>
       </div>
       <div class="about-body">
         <div class="quote-block">
           <p>"The best technology is the kind that gets out of the way and lets people focus on what truly matters."</p>
         </div>
         <p>I'm Guan, an Engineer in Singapore. My work sits at the intersection of technology and people where I build and develop solutions that help people to work more efficiently.</p>
-        <p>I believe that great solutions should be useful and provide good user experience. Whether it's automating a repetitive workflow, digitising a paper process, or creating an analytical dashboard that actually makes sense — I focus on creating solutions that people genuinely want to use.</p>
+        <p>I believe that great solutions should be useful and provide a good user experience. Whether I am automating a repetitive workflow, digitising a paper process, or creating an analytical dashboard that makes sense, I focus on building solutions that people genuinely want to use.</p>
         <p>I am proficient in Python, Tableau, Microsoft (M365, Microsoft Power Platform, etc) and Google Workspace Products. I am constantly on the lookout for new technologies and methodologies to enhance my skill set.</p>
         <p>Currently, I have an interest to learn to build pro-code solutions with the help of AI and learning on proper cloud solutions deployment. I hope I can continue to build on this interest and hobby. <i>(and this is how this page is born too..)</i></p>
       </div>
@@ -582,10 +695,10 @@
   </section>
 
   <!-- CONTACT -->
-  <section id="contact" class="contact-section">
+  <section id="contact" class="contact-section" aria-labelledby="contact-heading">
     <div class="contact-inner">
       <span class="contact-label">Get in touch</span>
-      <h2 class="contact-heading">Let's <em>connect</em></h2>
+      <h2 id="contact-heading" class="contact-heading">Let's <em>connect</em></h2>
       <p class="contact-sub">Interested in what I do? I'd love to hear from you.</p>
       <div class="contact-links">
         <a href="mailto:ohguanguan.82@gmail.com" class="contact-link primary">Email</a>
@@ -595,14 +708,41 @@
     </div>
   </section>
 
+  </main>
+
   <!-- FOOTER -->
   <footer>
     <span class="footer-copy">&copy; 2026 &mdash; All rights reserved</span>
-    <a href="#" class="footer-back-top">Back to top ↑</a>
+    <a href="#main-content" class="footer-back-top">Back to top ↑</a>
   </footer>
-  </main>
 
   <script>
+    const themeToggle = document.querySelector('.theme-toggle');
+    const themeToggleLabel = document.querySelector('.theme-toggle-label');
+    const themeToggleIcon = document.querySelector('.theme-toggle-icon');
+    const savedTheme = localStorage.getItem('theme');
+
+    if (savedTheme) document.documentElement.dataset.theme = savedTheme;
+
+    const updateThemeToggle = () => {
+      const isDark = document.documentElement.dataset.theme === 'dark' ||
+        (!document.documentElement.dataset.theme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      themeToggleLabel.textContent = isDark ? 'Light mode' : 'Dark mode';
+      themeToggleIcon.textContent = isDark ? '☼' : '◐';
+      themeToggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+    };
+
+    themeToggle.addEventListener('click', () => {
+      const isDark = document.documentElement.dataset.theme === 'dark' ||
+        (!document.documentElement.dataset.theme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      const nextTheme = isDark ? 'light' : 'dark';
+      document.documentElement.dataset.theme = nextTheme;
+      localStorage.setItem('theme', nextTheme);
+      updateThemeToggle();
+    });
+
+    updateThemeToggle();
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) entry.target.classList.add('visible');

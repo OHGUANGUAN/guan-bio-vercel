@@ -9,6 +9,7 @@ This project serves as my personal website where I experiment with front-end dev
 ## Features
 
 - Responsive design
+- Dark mode with system preference detection
 - Built with pure HTML and CSS
 - Fast static deployment
 - Hosted on Vercel
@@ -37,6 +38,5 @@ This repository is mainly used to:
 - Add JavaScript interactions
 - Improve accessibility
 - Include projects portfolio
-- Add dark mode
 
 ---
