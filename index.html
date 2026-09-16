@@ -35,13 +35,11 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── NAV ── */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
       display: flex;
-      justify-content: flex-start;
       align-items: center;
       padding: 1.25rem 3rem;
       background: rgba(250, 248, 244, 0.88);
@@ -49,13 +47,14 @@
       border-bottom: 1px solid var(--border);
     }
 
-    .nav-logo {
+    .nav-home {
+      margin-right: auto;
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem;
-      font-weight: 400;
-      letter-spacing: 0.04em;
+      font-size: 1.5rem;
       color: var(--ink);
       text-decoration: none;
+      letter-spacing: 0.04em;
+      line-height: 1;
     }
 
     .nav-links {
@@ -76,16 +75,20 @@
 
     .nav-links a:hover { color: var(--ink); }
 
-    /* ── HERO ── */
+    a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+    }
+
     .hero {
       min-height: 100vh;
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 0.7fr);
       align-items: center;
       padding: 8rem 3rem 4rem;
-      max-width: 700px;
+      max-width: 1200px;
       margin: 0 auto;
-      gap: 4rem;
+      gap: 7rem;
     }
 
     .hero-text { animation: fadeUp 0.9s ease both; }
@@ -192,28 +195,52 @@
       position: absolute;
       inset: 0;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      justify-content: flex-start; /* changed: pushes content to the top */
-      padding-top: 2rem;           /* added: breathing room from the top edge */
+      justify-content: center;
+      padding: 2rem;
       z-index: 1;
     }
 
-    .portrait-initials {
+    .hero-statement {
+      max-width: 16rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--accent);
+      color: var(--ink);
       font-family: 'Cormorant Garamond', serif;
-      font-size: 3.5rem;           /* changed: smaller, more header-like */
-      font-weight: 400;            /* changed: slightly bolder */
-      color: var(--accent);
-      line-height: 1;
-      letter-spacing: 0.08em;     /* added: spaced out like a heading */
-      text-transform: uppercase;  /* added */
-      opacity: 0.75;              /* changed: more visible */
-      border-bottom: 1px solid var(--accent-light); /* added: underline divider */
-      padding-bottom: 0.75rem;    /* added */
-      width: calc(100% - 4rem);  /* added: spans the frame width */
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 300;
+      line-height: 1.15;
       text-align: center;
     }
 
+    .hero-statement em {
+      color: var(--accent);
+    }
+
+    .hero-statement small {
+      display: block;
+      margin-top: 1.25rem;
+      color: var(--ink-muted);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      line-height: 1.5;
+      text-transform: uppercase;
+    }
+
+    .hero-image-note {
+      position: absolute;
+      top: 2rem;
+      left: 2rem;
+      right: 2rem;
+      display: flex;
+      justify-content: space-between;
+      color: var(--ink-light);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      z-index: 2;
+    }
 
     .hero-image-accent {
       position: absolute;
@@ -225,39 +252,7 @@
       z-index: -1;
     }
 
-    .hero-stat-row {
-      position: absolute;
-      bottom: 1.5rem;
-      left: 1.5rem;
-      right: 1.5rem;
-      display: flex;
-      gap: 1.5rem;
-      z-index: 2;
-    }
 
-    .hero-stat {
-      background: rgba(255,255,255,0.85);
-      padding: 0.75rem 1rem;
-      backdrop-filter: blur(8px);
-      flex: 1;
-    }
-
-    .stat-number {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.6rem;
-      font-weight: 300;
-      color: var(--ink);
-      display: block;
-    }
-
-    .stat-label {
-      font-size: 0.68rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--ink-muted);
-    }
-
-    /* ── SECTION SHARED ── */
     .section {
       padding: 7rem 3rem;
       max-width: 1200px;
@@ -283,7 +278,6 @@
       background: var(--accent-light);
     }
 
-    /* ── ABOUT ── */
     .about-grid {
       display: grid;
       grid-template-columns: 1fr 1.4fr;
@@ -329,26 +323,44 @@
       line-height: 1.6;
     }
 
-    /* ── WHAT I DO chips ── */
-    .chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      margin-top: 2rem;
+    .about-details {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      margin-top: 4rem;
+      background: var(--border);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
     }
 
-    .chip {
-      font-size: 0.75rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      font-weight: 500;
-      padding: 0.4rem 0.9rem;
-      border: 1px solid var(--accent-light);
+    .about-detail {
+      background: var(--cream);
+      padding: 1.5rem 1.25rem;
+    }
+
+    .about-detail-number {
+      display: block;
+      margin-bottom: 0.75rem;
       color: var(--accent);
-      background: transparent;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      line-height: 1;
     }
 
-    /* ── CONTACT ── */
+    .about-detail h3 {
+      margin-bottom: 0.35rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .about-detail p {
+      color: var(--ink-muted);
+      font-size: 0.82rem;
+      line-height: 1.6;
+    }
+
     .contact-section {
       background: var(--ink);
       padding: 7rem 3rem;
@@ -425,7 +437,6 @@
 
     .contact-link.primary:hover { background: #a86a38; }
 
-    /* ── FOOTER ── */
     footer {
       background: var(--ink);
       border-top: 1px solid rgba(255,255,255,0.06);
@@ -454,7 +465,6 @@
       color: var(--accent);
     }
 
-    /* ── DIVIDER ── */
     .divider {
       width: 100%;
       height: 1px;
@@ -463,7 +473,6 @@
       margin: 0 auto;
     }
 
-    /* ── ANIMATIONS ── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(24px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -480,7 +489,6 @@
       transform: translateY(0);
     }
 
-    /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       nav { padding: 1rem 1.5rem; }
       .nav-links { gap: 1.5rem; }
@@ -491,7 +499,8 @@
         gap: 2.5rem;
       }
 
-      .hero-image { order: -1; max-width: 360px; margin: 0 auto; width: 100%; }
+      .hero-text { order: -1; }
+      .hero-image { max-width: 360px; margin: 0 auto; width: 100%; }
       .hero-image-accent { display: none; }
 
       .section { padding: 4rem 1.5rem; }
@@ -499,10 +508,15 @@
 
       .contact-section { padding: 5rem 1.5rem; }
       footer { flex-direction: column; gap: 0.5rem; padding: 1.5rem; text-align: center; }
+      .about-details { grid-template-columns: 1fr; }
+    }
 
     @media (max-width: 600px) {
-      .nav-links { display: none; }
-      .hero-stat-row { flex-direction: column; gap: 0.5rem; }
+      nav { justify-content: space-between; }
+      .nav-home { margin-right: 0; }
+      .nav-links { gap: 0.9rem; }
+      .nav-links a { font-size: 0.68rem; letter-spacing: 0.08em; }
+      .hero-image-note { top: 1.25rem; left: 1.25rem; right: 1.25rem; }
     }
   </style>
 </head>
@@ -510,6 +524,7 @@
 
   <!-- NAV -->
   <nav>
+    <a class="nav-home" href="#top" aria-label="Back to top" title="Back to top">&#8593;</a>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#contact">Contact</a></li>
@@ -517,6 +532,7 @@
   </nav>
 
   <!-- HERO -->
+  <main id="top">
   <section class="hero">
     <div class="hero-text">
       <span class="hero-label">Welcome to my biography</span>
@@ -526,6 +542,16 @@
         <a href="#contact" class="btn-primary">Get in touch</a>
         <a href="#about" class="btn-secondary">Learn more</a>
       </div>
+    </div>
+
+    <div class="hero-image" aria-label="Introduction to Guan">
+      <div class="hero-image-frame">
+        <div class="placeholder-portrait">
+          <div class="hero-image-note"><span>Engineer</span><span>Singapore</span></div>
+          <p class="hero-statement">Technology should feel <em>useful</em>, human, and quietly powerful.<small>A practical approach to better work</small></p>
+        </div>
+      </div>
+      <div class="hero-image-accent"></div>
     </div>
 
   </section>
@@ -545,9 +571,13 @@
         <p>I'm Guan, an Engineer in Singapore. My work sits at the intersection of technology and people where I build and develop solutions that help people to work more efficiently.</p>
         <p>I believe that great solutions should be useful and provide good user experience. Whether it's automating a repetitive workflow, digitising a paper process, or creating an analytical dashboard that actually makes sense — I focus on creating solutions that people genuinely want to use.</p>
         <p>I am proficient in Python, Tableau, Microsoft (M365, Microsoft Power Platform, etc) and Google Workspace Products. I am constantly on the lookout for new technologies and methodologies to enhance my skill set.</p>
-        <p>Currently, I have an interest to learn to build pro-code solutions with the help of AI and learning on proper cloud solutions deployment. I hope I can continue to build on this interest and hobby. <i><em></em>(and this is how this page is born too..)</i></p>
-
+        <p>Currently, I have an interest to learn to build pro-code solutions with the help of AI and learning on proper cloud solutions deployment. I hope I can continue to build on this interest and hobby. <i>(and this is how this page is born too..)</i></p>
       </div>
+    </div>
+    <div class="about-details" aria-label="Areas of focus">
+      <article class="about-detail"><span class="about-detail-number">01</span><h3>Automate</h3><p>Turn repetitive work into calmer, more capable workflows.</p></article>
+      <article class="about-detail"><span class="about-detail-number">02</span><h3>Clarify</h3><p>Make data and complex processes easier to understand.</p></article>
+      <article class="about-detail"><span class="about-detail-number">03</span><h3>Learn</h3><p>Keep exploring AI, cloud deployment, and better ways to build.</p></article>
     </div>
   </section>
 
@@ -560,6 +590,7 @@
       <div class="contact-links">
         <a href="mailto:ohguanguan.82@gmail.com" class="contact-link primary">Email</a>
         <a href="https://linkedin.com/in/9g0h" class="contact-link">LinkedIn</a>
+        <a href="https://github.com/OHGUANGUAN" class="contact-link" target="_blank" rel="noopener noreferrer">GitHub</a>
       </div>
     </div>
   </section>
@@ -569,6 +600,7 @@
     <span class="footer-copy">&copy; 2026 &mdash; All rights reserved</span>
     <a href="#" class="footer-back-top">Back to top ↑</a>
   </footer>
+  </main>
 
   <script>
     const observer = new IntersectionObserver((entries) => {
