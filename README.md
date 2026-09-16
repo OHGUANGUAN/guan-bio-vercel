@@ -33,10 +33,5 @@ This repository is mainly used to:
 - Learn website deployment with Vercel
 - Maintain a personal online biography
 
-## Future Improvements
-
-- Add JavaScript interactions
-- Improve accessibility
-- Include projects portfolio
 
 ---
